@@ -74,17 +74,15 @@ DEST="$2"
 
 # Path to the rclone config file
 BASEDIR=$(dirname "$0")
-CONFIG="$BASEDIR/.rclone.conf"
 
 # Start time
 START=$(date +%s)
 
 # Log start of operation
 write_msg "Starting rclone sync from $SOURCE to $DEST"
-write_msg "Using configuration file: $CONFIG"
 
 # Rclone command
-RCLONE_CMD="rclone sync --progress --stats-one-line --stats=30s --fast-list --transfers=$THREADS --checkers=$THREADS --config=$CONFIG $SOURCE $DEST --delete-after"
+RCLONE_CMD="rclone sync --progress --stats-one-line --stats=30s --fast-list --transfers=$THREADS --checkers=$THREADS $SOURCE $DEST --delete-after"
 write_msg "Executing command: $RCLONE_CMD"
 
 # Send "start" health check notification if enabled
