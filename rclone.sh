@@ -1,12 +1,9 @@
 #!/bin/bash
 
-# Store secrets in env_conf
-source env_conf
-
 # Variables
 PING_KEY="${PING_KEY:-}"
 TASK="${TASK:-}"
-THREADS=24
+THREADS=45
 ENABLE_HEALTHCHECK="${ENABLE_HEALTHCHECK:-false}"  # Set to "false" by default if not set
 log_messages=""  # Variable to store all log messages
 
@@ -87,7 +84,7 @@ write_msg "Starting rclone sync from $SOURCE to $DEST"
 write_msg "Using configuration file: $CONFIG"
 
 # Rclone command
-RCLONE_CMD="rclone sync --progress --stats-one-line --stats=30s --transfers=$THREADS --checkers=$THREADS --config=$CONFIG $SOURCE $DEST"
+RCLONE_CMD="rclone sync --progress --stats-one-line --stats=30s --fast-list --transfers=$THREADS --checkers=$THREADS --config=$CONFIG $SOURCE $DEST --delete-after"
 write_msg "Executing command: $RCLONE_CMD"
 
 # Send "start" health check notification if enabled
